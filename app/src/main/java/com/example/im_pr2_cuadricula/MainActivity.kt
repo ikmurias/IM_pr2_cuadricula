@@ -3,13 +3,15 @@ package com.example.im_pr2_cuadricula
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.im_pr2_cuadricula.ui.theme.IM_pr2_cuadriculaTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,22 +24,63 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    cuadriculaApp()
                 }
             }
         }
     }
 }
 
+
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun cuadriculaApp() {
+
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun DefaultPreview() {
-    IM_pr2_cuadriculaTheme {
-        Greeting("Android")
+fun previewCard() {
+    TopicCard(topic = Topic(R.string.architecture, 58, R.drawable.architecture))
+}
+
+@Composable
+fun TopicCard(topic: Topic) {
+    Card {
+        Row {
+            Box ( ){
+                Image(
+                    painter = painterResource(id = topic.imageResouceID),
+                    contentDescription = stringResource(
+                        id = topic.stringResourceId
+                    ),
+                    modifier = Modifier
+                        .height(68.dp)
+                        .width(68.dp)
+                        .aspectRatio(1f)
+                )
+            }
+
+            Column {
+                Text(
+                    stringResource(id = topic.stringResourceId),
+                    modifier = Modifier.padding(
+                        bottom = 8.dp,
+                        top = 16.dp,
+                        start = 16.dp,
+                        end = 16.dp
+                    )
+                )
+                Row {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_grain),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 8.dp)
+                    )
+                    Text(topic.numCursos.toString())
+                }
+            }
+        }
     }
 }
+
