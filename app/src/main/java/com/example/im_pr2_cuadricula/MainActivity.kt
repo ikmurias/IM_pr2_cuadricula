@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.im_pr2_cuadricula.ui.theme.DataSource
 import com.example.im_pr2_cuadricula.ui.theme.IM_pr2_cuadriculaTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,8 +37,18 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
+@Preview
 fun cuadriculaApp() {
-
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(8.dp)
+    ) {
+        items(DataSource.topics) { card ->
+            TopicCard(topic = card)
+        }
+    }
 }
 
 @Preview
@@ -47,7 +61,7 @@ fun previewCard() {
 fun TopicCard(topic: Topic) {
     Card {
         Row {
-            Box ( ){
+            Box() {
                 Image(
                     painter = painterResource(id = topic.imageResouceID),
                     contentDescription = stringResource(
